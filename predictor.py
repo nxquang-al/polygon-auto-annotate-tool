@@ -8,15 +8,16 @@ from detectron2.config import get_cfg
 from skimage.segmentation import slic
 from skimage.util import img_as_float
 
-CONFIG_FILE = 'detectron2/configs/fcos/fcos_imprv_R_101_FPN_cpu.yaml'
+CONFIG_FILE = "detectron2/configs/fcos/fcos_imprv_R_101_FPN_cpu.yaml"
 CONFIDENCE_THRESHOLD = 0.5
 
+
 def setup_cfg():
-    #Load default config
+    # Load default config
     cfg = get_cfg()
-    #Merge the default with customized one
+    # Merge the default with customized one
     cfg.merge_from_file(CONFIG_FILE)
-    #Set score_threshold for builtin models
+    # Set score_threshold for builtin models
     cfg.MODEL.RETINANET.SCORE_THRESH_TEST = CONFIDENCE_THRESHOLD
     cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = CONFIDENCE_THRESHOLD
     cfg.MODEL.FCOS.INFERENCE_TH = CONFIDENCE_THRESHOLD
@@ -61,14 +62,26 @@ class VisualizationDemo(object):
         # Convert image from OpenCV BGR format to Matplotlib RGB format.
         image = image[:, :, ::-1]
 
-        mask = predictions['instances'].raw_masks.squeeze(1).data.cpu().numpy() \
-            if predictions['instances'].has("raw_masks") else None
-        mask_bo = predictions['instances'].pred_masks_bo.squeeze(1).data.cpu().numpy() \
-            if predictions['instances'].has("pred_masks_bo") else None
-        bound_bo = predictions['instances'].pred_bounds_bo.squeeze(1).data.cpu().numpy() \
-            if predictions['instances'].has("pred_bounds_bo") else None
-        bound = predictions['instances'].pred_bounds.squeeze(1).data.cpu().numpy() \
-            if predictions['instances'].has("pred_bounds") else None
+        mask = (
+            predictions["instances"].raw_masks.squeeze(1).data.cpu().numpy()
+            if predictions["instances"].has("raw_masks")
+            else None
+        )
+        mask_bo = (
+            predictions["instances"].pred_masks_bo.squeeze(1).data.cpu().numpy()
+            if predictions["instances"].has("pred_masks_bo")
+            else None
+        )
+        bound_bo = (
+            predictions["instances"].pred_bounds_bo.squeeze(1).data.cpu().numpy()
+            if predictions["instances"].has("pred_bounds_bo")
+            else None
+        )
+        bound = (
+            predictions["instances"].pred_bounds.squeeze(1).data.cpu().numpy()
+            if predictions["instances"].has("pred_bounds")
+            else None
+        )
 
         visualizer = Visualizer(image, self.metadata, instance_mode=self.instance_mode)
         if "instances" in predictions:
@@ -84,6 +97,7 @@ class SLICSuperpixels:
 
     Reference: https://scikit-image.org/docs/dev/api/skimage.segmentation.html#skimage.segmentation.slic
     """
+
     def __init__(self, image):
         self.image = image
         self.segments = None
