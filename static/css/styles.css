@@ -1,0 +1,141 @@
+html{
+    height: 100%
+}
+
+body{
+    min-height: 100%;
+    background-color: rgb(37,39,40);
+}
+
+h1{
+    padding: 16px;
+    text-align: center;
+}
+
+button{
+    background-color: #0000ff;
+    color: white;
+}
+
+.modal-content{
+    display: table
+}
+
+.center{
+   display: flex;
+   justify-content: center;
+   align-items: top;
+}
+
+.bottom-left{
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+}
+
+
+.bottom-right{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.right-below{
+    float: right;
+    margin-top: 20px;
+}
+
+.rounded-full{
+    border-radius: 9999px !important;
+}
+
+.inline-block{
+    display: inline-block
+}
+
+.w-3{
+    width: 0.75rem !important;
+}
+
+.h-3{
+    height: 0.75rem !important;
+}
+
+#imageDiv{
+    width: 600px;
+    height: 600px;
+    margin-right: 36px
+}
+#imageCanvas{
+    background-color: rgb(34,36,37);
+    border: 1px solid rgb(61, 65, 68);
+    cursor: pointer;
+}
+
+#resultPanel{
+    background-color: rgb(34,36,37);
+    width: 400px;
+    height: 400px;
+    color: rgb(222, 220, 217);
+    border-radius: 5px;
+    border: 1px solid rgb(61, 65, 68);
+    position: relative;
+}
+
+#panelHeader{
+    padding: 8px;
+    margin: 0;
+    border-bottom: 1px solid rgb(61, 65, 68);
+    text-align: center
+}
+
+#panelHeader > div{
+    height: 100%;
+}
+
+#panelContent{
+    padding: 16px;
+    margin: 0;
+    width: 100%;
+    height: 90%;
+    max-height: 90%;
+    overflow: scroll;
+}
+
+.item{
+    width: 100%;
+    border: 1px solid rgb(61, 65, 68);
+    padding: 8px;
+    color: rgb(222, 220, 217);
+    border-radius: 5px;
+    margin-bottom: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#panelFooter{
+    text-align: right;
+    padding: 8px;
+    margin: 0;
+    border-top: 1px solid rgb(61, 65, 68);
+    position: absolute;
+    bottom: 0;
+    width: 100%
+}
+
+#inputDiv{
+    margin-top: 16px;
+    margin-bottom: 32px;
+}
+
+input{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+#modalCanvas{
+    cursor: pointer;
+}
