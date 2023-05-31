@@ -5,3 +5,4 @@ opencv-python
 setuptools==59.5.0
 Flask==2.1.2
 gunicorn==20.1.0
+gdown
