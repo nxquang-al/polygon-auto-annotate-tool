@@ -13,7 +13,7 @@ h1{
 }
 
 button{
-    background-color: #0000ff;
+    background-color: #4169e1;
     color: white;
 }
 
@@ -30,15 +30,16 @@ button{
 .bottom-left{
     position: absolute;
     bottom: 5px;
-    left: 10px;
+    left: 15px;
 }
 
 
 .bottom-right{
     position: absolute;
-    bottom: 0;
-    right: 0;
+    bottom: 5px;
+    right: 15px;
 }
+
 
 .right-below{
     float: right;

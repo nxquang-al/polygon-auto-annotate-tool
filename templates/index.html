@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Auto Annotation Tool</title>
+    <title>Auto-Annotation Tool</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icon.png') }}">
 </head>
 <body>
-    <h1>Polygon Auto-Annotation</h1>
+    <h1>Polygon Auto-Annotate</h1>
 
     <div id="inputDiv">
         <input type="file" accept="image/*" id="imageLoader" name="imageLoader">
@@ -33,7 +34,8 @@
         </div>
         
     </div>
-    <div id="coordinatesDiv" class="bottom-left">x: 0, y:0</div>
+    <div id="coordinatesDiv" class="bottom-left">x: 0, y: 0 (px)</div>
+    <div class="bottom-right">@ngxquang, Some rights reserverd</div>
 
     <div class="modal fade" id="selectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" aria-disabled="true">
         <div class="modal-dialog" role="document">
