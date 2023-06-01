@@ -10,6 +10,7 @@ from skimage.util import img_as_float
 
 CONFIG_FILE = "/src/detectron2/configs/fcos/fcos_imprv_R_101_FPN_cpu.yaml"
 # CONFIG_FILE = "/src/detectron2/configs/fcos/fcos_imprv_R_101_FPN.yaml"
+
 CONFIDENCE_THRESHOLD = 0.5
 
 
