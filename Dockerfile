@@ -17,5 +17,6 @@ RUN pip install -e git+https://github.com/nxquang-al/detectron2.git#egg=detectro
 # Download model checkpoint to ./models/
 RUN gdown https://drive.google.com/uc?id=1qhoiYU92BvJuum74rY6LpiG7-FoEqoO9 -O ./models/
 
-EXPOSE 80
-CMD  ["python", "server.py"]
+EXPOSE 8080
+# CMD  ["python", "server.py"]
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "server:app"]
