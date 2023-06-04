@@ -44,11 +44,11 @@
     ]
 }
 ```
-- TODO: Allows output to standard formats such as: COCO and Pascal VOC.
+- **TODO**: Allows output to standard formats such as: COCO and Pascal VOC.
 
 ### Demo
 👉 Check out this website: [polygon-auto-annotate-tool.fly.dev](https://polygon-auto-annotate-tool.fly.dev/)
-- Because of the hardware resources constraint, it may take time to run the website (~5-7 seconds for an inference), and it can be out of memory if you test on large images. We recommend to install and run the app locally for a better experience.
+- Because of the hardware resources constraint, it may take time to run the website (~5-7 seconds for an inference), and it can run out of memory if you test on large images. We recommend to install and run the app locally for a better experience.
 
 👉 Video for how to install and demo: [demo-video](https://drive.google.com/file/d/1xmZ74-xW3YQKbkzqEEeqd7hf_JcUW0wW/view?usp=sharing)
 
@@ -62,7 +62,7 @@ Easy install with Docker.
 # Find Dockerfile and build an image.
 $ docker build -t "polygon-auto-annotate-tool" .
 
-# Run the container
+# Run in a new container
 $ docker run --name "polygon-auto-annotate-tool" -p 8080:8080  "polygon-auto-annotate-tool"
 ```
 
@@ -71,7 +71,7 @@ Dockerhub pre-buiilt image: [Dockerhub-link](https://hub.docker.com/r/nxquang200
 ```bash
 $ docker pull nxquang2002/polygon-auto-annotate-tool
 
-# Run
+# Run the image
 $ docker run --name "polygon-auto-annotate-tool" -p 8080:8080  "nxquang2002/polygon-auto-annotate-tool"
 ```
 
