@@ -2,7 +2,7 @@
 ![thumbnail](./data/images/thumbnail.png)
 ## Introduction
 - If you are interested in building a dataset for training an image segmentation model, then you have to come up against polygon labeling. Polygons are more precise than bounding boxes but, take more time to apply labels to numerous instances in a large number of images.
-- Now that, Polygon Auto-Annotate Tool is a simple-UI application, in which you can apply a polygon annotation to objects in an image with as few as a drag and drop. It takes advantage of **an instance segmentation model** to automatically segment items and create polygon masks or boundaries.
+- Now that, Polygon Auto-Annotate Tool is a simple-UI application, in which you can apply a polygon annotation to objects in an image with as few as a drag-and-drop action. It takes advantage of **an instance segmentation model** to automatically segment items and create polygon masks or boundaries.
 
 ## Major features
 ### 1. The basics
@@ -48,7 +48,7 @@
 - **TODO**: Allows output to standard formats such as: COCO and Pascal VOC.
 
 ## Demo
-👉 Check out this website: [polygon-auto-annotate-tool.fly.dev](https://polygon-auto-annotate-tool.fly.dev/)
+👉 Check out this website: [polygon-auto-annotate-tool.fly.dev](https://polygon-auto-annotate-tool.fly.dev/). You can test with these images: [test-images](https://drive.google.com/drive/folders/1po0LUBBqHOxvt91WXIWwANrdq9zhQzNt?usp=sharing)
 - Because of the hardware resources constraint, it may take time to run the website (~5-7 seconds for an inference), and it can run out of memory if you test on large images. We recommend to install and run the app locally for a better experience.
 
 👉 YouTube video for how to install and demo: [demo-video](https://www.youtube.com/watch?v=yfaS8WqXEEY)
