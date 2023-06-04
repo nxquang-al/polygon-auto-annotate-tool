@@ -1,20 +1,30 @@
 # Introduction
 - If you are interested in building a dataset for training an image segmentation model, then you have to come up against polygon labeling. Polygons are more precise than bounding boxes but, take more time to apply labels to numerous instances in a large number of images.
-- Now that, Polygon Auto-Annotate Tool is a simple-UI application, in which you can apply a polygon annotation to objects in an image with as few as a drag-and-drop. It takes advantage of **an instance segmentation model** to automatically segment items and create polygon masks or boundaries.
+- Now that, Polygon Auto-Annotate Tool is a simple-UI application, in which you can apply a polygon annotation to objects in an image with as few as a drag and drop. It takes advantage of **an instance segmentation model** to automatically segment items and create polygon masks or boundaries.
+
+![thumbnail](./data/images/thumbnail.png)
 
 ## Major features
 ### 1. The basics
-- **Drag-and-drop a region** containing the entirety of the object that you would like to segment. Make sure that there is a reasonable padding surrouding the object, since the model does not work well when the selected region is too tight to the object.
-- A cropped image will be shown up in a modal. You have to click on the object to specify the segmented target.
+- **Drag and drop a region** containing the entirety of the object that you would like to segment. Make sure that there is a reasonable padding surrouding the object, since the model does not work well when the selected region is too tight to the object.
+- A cropped image will be shown up in a modal box. You have to click on the object to specify the segmented target.
+
+![drag-and-drop](./data/gif/drag-and-drop.gif)
 
 ### 2. Remove a mask
 - Whenever you feel disappointed with a mask, you certainly can remove that mask from annotation. **Ctrl + Click** on the mask and the image will be updated. If there is no mask in that place, no action will be executed.
+![remove](./data/gif/remove.gif)
 
-### 3. Include or exclude regions
+### 3. Include or exclude regions (auto-complete)
 - **Shift + Click** on a point, then a small reasonable region will be added to the current mask. A unit added is a superpixel that this point belongs to.
 - We apply **the Sklearn's SLIC implementation** to segment the image into clusters. The Include-click handler adds the corresponding cluster to the mask.
+
+![include](./data/gif/include.gif)
+
 - Notice that the cluster is added to the newest mask, not the nearest mask. We will amend this limit in the future.
 - Contrastively, **Alt + Click** on a point will erase a cluster from the mask. If there is no mask in that place, no action will be taken.
+![exclude](./data/gif/exclude.gif)
+
 
 ### 4. Export
 - Click on the **Export** button to download the Json file of annotations. For the sake of simplicty, we only maintain a simple schema as follow:
@@ -38,9 +48,9 @@
 
 ## Demo
 👉 Check out this website: [polygon-auto-annotate-tool.fly.dev](https://polygon-auto-annotate-tool.fly.dev/)
-- Because of the limitation of hardware resources, it may take time to run the website (~5-7 seconds for an inference). We recommend to install and run the application locally.
+- Because of the hardware resources constraint, it may take time to run the website (~5-7 seconds for an inference), and it can be out of memory if you test on large images. We recommend to install and run the app locally for a better experience.
 
-👉 Youtube video for how to install and demo: 
+👉 Video for how to install and demo: [demo-video](https://drive.google.com/file/d/1xmZ74-xW3YQKbkzqEEeqd7hf_JcUW0wW/view?usp=sharing)
 
 # Installation
 After the successful installation, the application will be available at http://localhost:8080
@@ -85,11 +95,14 @@ $ gdown https://drive.google.com/uc?id=1qhoiYU92BvJuum74rY6LpiG7-FoEqoO9 -O ./mo
 
 # User Guides
 - Allowed operations:
-    - *Drag-and-drop*: select a region that contains the object
+    - *Drag and drop*: select a region that contains the object
     - *Ctrl + click*: remove the mask, if there is no mask, nothing is taken.
-    - *Shift + click*: Include click, add a reasonable region to the current mask
-    - *Alt + click*: Exclude click, erase a region from the mask.
+    - *Shift + click*: Include click, add a reasonable region to the current mask (auto-complete).
+    - *Alt + click*: Exclude click, erase a region from the mask (auto-complete).
+    - *Ctrl + Scroll up/down*: zoom in/out the image.
     - Click on **Export** to download Json file of annotations.
 
 # Acknowledgement
-- This application is inspired by the Roboflow Smart Polygon Labeling, but worse. Instead of labeling in one click, our app requires more operations but, provide more flexibility in selecting objects.
+- This application is inspired by the [Roboflow Smart Polygon Labeling](https://blog.roboflow.com/automated-polygon-labeling-computer-vision/), but worse. Instead of labeling in one click, our app requires more operations but, provides more flexibility in selecting objects.
+- The repository is built using the [Detectron2](https://github.com/facebookresearch/detectron2) platform, thanks for their open-source code! We build this for academic purposes, not for commercial purposes.
+- We also apply the [BCNet](https://github.com/lkeab/BCNet) model architecture for task segmentation. Thanks to the BCNet authors for their excellent work!
