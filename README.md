@@ -4,18 +4,18 @@
 - If you are interested in building a dataset for training an image segmentation model, then you have to come up against polygon labeling. Polygons are more precise than bounding boxes but, take more time to apply labels to numerous instances in a large number of images.
 - Now that, Polygon Auto-Annotate Tool is a simple-UI application, in which you can apply a polygon annotation to objects in an image with as few as a drag and drop. It takes advantage of **an instance segmentation model** to automatically segment items and create polygon masks or boundaries.
 
-### Major features
-#### 1. The basics
+## Major features
+### 1. The basics
 - **Drag and drop a region** containing the entirety of the object that you would like to segment. Make sure that there is a reasonable padding surrouding the object, since the model does not work well when the selected region is too tight to the object.
 - A cropped image will be shown up in a modal box. You have to click on the object to specify the segmented target.
 
 ![drag-and-drop](./data/gif/drag-and-drop.gif)
 
-#### 2. Remove a mask
+### 2. Remove a mask
 - Whenever you feel disappointed with a mask, you certainly can remove that mask from annotation. **Ctrl + Click** on the mask and the image will be updated. If there is no mask in that place, no action will be executed.
 ![remove](./data/gif/remove.gif)
 
-#### 3. Include or exclude regions (auto-complete)
+### 3. Include or exclude regions (auto-complete)
 - **Shift + Click** on a point, then a small reasonable region will be added to the current mask. A unit added is a superpixel that this point belongs to.
 - We apply **the Sklearn's SLIC implementation** to segment the image into clusters. The Include-click handler adds the corresponding cluster to the mask.
 
@@ -26,7 +26,7 @@
 ![exclude](./data/gif/exclude.gif)
 
 
-#### 4. Export
+### 4. Export
 - Click on the **Export** button to download the Json file of annotations. For the sake of simplicty, we only maintain a simple schema as follow:
 ```javascript
 {
@@ -46,7 +46,7 @@
 ```
 - **TODO**: Allows output to standard formats such as: COCO and Pascal VOC.
 
-### Demo
+## Demo
 👉 Check out this website: [polygon-auto-annotate-tool.fly.dev](https://polygon-auto-annotate-tool.fly.dev/)
 - Because of the hardware resources constraint, it may take time to run the website (~5-7 seconds for an inference), and it can run out of memory if you test on large images. We recommend to install and run the app locally for a better experience.
 
