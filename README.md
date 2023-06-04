@@ -51,7 +51,7 @@
 👉 Check out this website: [polygon-auto-annotate-tool.fly.dev](https://polygon-auto-annotate-tool.fly.dev/)
 - Because of the hardware resources constraint, it may take time to run the website (~5-7 seconds for an inference), and it can run out of memory if you test on large images. We recommend to install and run the app locally for a better experience.
 
-👉 Video for how to install and demo: [demo-video](https://drive.google.com/file/d/1xmZ74-xW3YQKbkzqEEeqd7hf_JcUW0wW/view?usp=sharing)
+👉 YouTube video for how to install and demo: [demo-video](https://www.youtube.com/watch?v=yfaS8WqXEEY)
 
 ## Technical Overview
 - *For segmentation:* we apply the [BCNet](https://github.com/lkeab/BCNet) architecture, which is the SOTA of the task instance segmentation in 2021. We also take advantage of [Sklearn's SLIC implementation](https://scikit-image.org/docs/dev/api/skimage.segmentation.html#skimage.segmentation.slic) to segment image into superpixels. This type of segmentation is later use in Include/Exclude handling.
@@ -91,7 +91,7 @@ $ conda activate polygon-annotate
 # Install packages
 $ pip install -r requirements.txt
 
-# Clone and build detectron2 from source. Since it is modify 
+# Clone and build detectron2 from source. Since it need to be modified
 # to adapt to this app, we have forked and modified the source code.
 $ pip install -e git+https://github.com/nxquang-al/detectron2.git#egg=detectron2
 
