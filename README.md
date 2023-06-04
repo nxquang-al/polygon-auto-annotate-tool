@@ -13,16 +13,17 @@
 
 ### 2. Remove a mask
 - Whenever you feel disappointed with a mask, you certainly can remove that mask from annotation. **Ctrl + Click** on the mask and the image will be updated. If there is no mask in that place, no action will be executed.
+
 ![remove](./data/gif/remove.gif)
 
 ### 3. Include or exclude regions (auto-complete)
 - **Shift + Click** on a point, then a small reasonable region will be added to the current mask. A unit added is a superpixel that this point belongs to.
-- We apply **the Sklearn's SLIC implementation** to segment the image into clusters. The Include-click handler adds the corresponding cluster to the mask.
 
 ![include](./data/gif/include.gif)
 
 - Notice that the cluster is added to the newest mask, not the nearest mask. We will amend this limit in the future.
 - Contrastively, **Alt + Click** on a point will erase a cluster from the mask. If there is no mask in that place, no action will be taken.
+
 ![exclude](./data/gif/exclude.gif)
 
 
@@ -52,6 +53,11 @@
 
 👉 Video for how to install and demo: [demo-video](https://drive.google.com/file/d/1xmZ74-xW3YQKbkzqEEeqd7hf_JcUW0wW/view?usp=sharing)
 
+## Technical Overview
+- *For segmentation:* we apply the [BCNet](https://github.com/lkeab/BCNet) architecture, which is the SOTA of the task instance segmentation in 2021. We also take advantage of [Sklearn's SLIC implementation](https://scikit-image.org/docs/dev/api/skimage.segmentation.html#skimage.segmentation.slic) to segment image into superpixels. This type of segmentation is later use in Include/Exclude handling.
+- *For visualization:* we use the [FAIR's Detectron2](https://github.com/facebookresearch/detectron2), which is a great library provides utilities in detection and segmentation algorithms. It can be considered as the core technology behind this repository.
+- *For app development:* we build a simple Flask app and use Gunicorn to serve the app.
+- *For deployment:* the app is dockerized and deployed to [Fly.io](https://fly.io/), which is a hosting platform supporting quick deployment.
 ## Installation
 After the successful installation, the application will be available at http://localhost:8080
 ### 1. Build with Docker
@@ -104,5 +110,5 @@ $ gdown https://drive.google.com/uc?id=1qhoiYU92BvJuum74rY6LpiG7-FoEqoO9 -O ./mo
 
 ## Acknowledgement
 - This application is inspired by the [Roboflow Smart Polygon Labeling](https://blog.roboflow.com/automated-polygon-labeling-computer-vision/), but worse. Instead of labeling in one click, our app requires more operations but, provides more flexibility in selecting objects.
-- The repository is built using the [Detectron2](https://github.com/facebookresearch/detectron2) platform, thanks for their open-source code! We build this for academic purposes, not for commercial purposes.
-- We also apply the [BCNet](https://github.com/lkeab/BCNet) model architecture for task segmentation. Thanks to the BCNet authors for their excellent work!
+- The repository is built using the [Detectron2](https://github.com/facebookresearch/detectron2) library, thanks for their open-source code! We build this for academic purposes, not for commercial purposes.
+- Thanks to [BCNet](https://github.com/lkeab/BCNet)  authors for their excellent work!
