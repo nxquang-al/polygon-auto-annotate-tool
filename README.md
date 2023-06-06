@@ -49,7 +49,8 @@
 
 ## Demo
 👉 Check out this website: [polygon-auto-annotate-tool.fly.dev](https://polygon-auto-annotate-tool.fly.dev/). You can test with these images: [test-images](https://drive.google.com/drive/folders/1po0LUBBqHOxvt91WXIWwANrdq9zhQzNt?usp=sharing)
-- Because of the hardware resources constraint, it may take time to run the website (~5-7 seconds for an inference), and it can run out of memory if you test on large images. We recommend to install and run the app locally for a better experience.
+- Because of the hardware resources constraint, it may take time to run the website (~7-8 seconds for an inference), and it can run out of memory if you test on large images. If there is nothing changed, then either the server runs out of memory or the model cannot segment the target. We recommend to install and run the app locally for a better experience.
+- **TODO:** Set a loading screen while waiting for a server response.
 
 👉 YouTube video for how to install and demo: [demo-video](https://www.youtube.com/watch?v=yfaS8WqXEEY)
 
@@ -111,4 +112,4 @@ $ gdown https://drive.google.com/uc?id=1qhoiYU92BvJuum74rY6LpiG7-FoEqoO9 -O ./mo
 ## Acknowledgement
 - This application is inspired by the [Roboflow Smart Polygon Labeling](https://blog.roboflow.com/automated-polygon-labeling-computer-vision/), but worse. Instead of labeling in one click, our app requires more operations but, provides more flexibility in selecting objects.
 - The repository is built using the [Detectron2](https://github.com/facebookresearch/detectron2) library, thanks for their open-source code! We build this for academic purposes, not for commercial purposes.
-- Thanks to [BCNet](https://github.com/lkeab/BCNet)  authors for their excellent work!
+- Many thanks to [BCNet](https://github.com/lkeab/BCNet)  authors for their excellent work!
