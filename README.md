@@ -1,4 +1,4 @@
-# Polygon Auto-Annotate Tool
+# 🚀 Polygon Auto-Annotate Tool 
 ![thumbnail](./data/images/thumbnail.png)
 ## Introduction
 - If you are interested in building a dataset for training an image segmentation model, then you have to come up against polygon labeling. Polygons are more precise than bounding boxes but, take more time to apply labels to numerous instances in a large number of images.
