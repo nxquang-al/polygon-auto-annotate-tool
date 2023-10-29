@@ -10,7 +10,7 @@ COPY ./requirements/ /app/requirements/
 COPY . /app
 
 # Install packages and dependecies
-RUN pip install --no-cache-dir -r requirements/base.txt
+RUN pip install --no-cache-dir -r requirements/dev.txt
 # Build Detectron2 from source, this library has been forked and modified to fit this app,
 # please refer the repo in my personal GitHub account for more details.
 RUN pip install -e git+https://github.com/nxquang-al/detectron2.git#egg=detectron2
