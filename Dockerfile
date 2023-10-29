@@ -17,6 +17,8 @@ RUN pip install -e git+https://github.com/nxquang-al/detectron2.git#egg=detectro
 # Download model checkpoint to ./models/
 RUN gdown https://drive.google.com/uc?id=1qhoiYU92BvJuum74rY6LpiG7-FoEqoO9 -O ./models/
 
+RUN cp .env.example .env
+
 RUN chmod +x scripts/start.sh
 
 CMD ./scripts/start.sh

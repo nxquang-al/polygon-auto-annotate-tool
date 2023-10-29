@@ -55,10 +55,10 @@
 👉 YouTube video for how to install and demo: [demo-video](https://www.youtube.com/watch?v=yfaS8WqXEEY)
 
 ## Technical Overview
-- *For segmentation:* we apply the [BCNet](https://github.com/lkeab/BCNet) architecture, which is the SOTA of the task instance segmentation in 2021. We also take advantage of [Sklearn's SLIC implementation](https://scikit-image.org/docs/dev/api/skimage.segmentation.html#skimage.segmentation.slic) to segment image into superpixels. This type of segmentation is later use in Include/Exclude handling.
-- *For visualization:* we use the [FAIR's Detectron2](https://github.com/facebookresearch/detectron2), which is a great library provides utilities in detection and segmentation algorithms. It can be considered as the core technology behind this repository.
-- *For app development:* we build a simple Flask app and use Gunicorn to serve the app.
-- *For deployment:* the app is dockerized and deployed to [Fly.io](https://fly.io/), which is a hosting platform supporting quick deployment.
+- `For segmentation:` we apply the [BCNet](https://github.com/lkeab/BCNet) architecture, which is the SOTA of the task instance segmentation in 2021. We also take advantage of [Sklearn's SLIC implementation](https://scikit-image.org/docs/dev/api/skimage.segmentation.html#skimage.segmentation.slic) to segment image into superpixels. This type of segmentation is later use in Include/Exclude handling.
+- `For visualization:` we use the [FAIR's Detectron2](https://github.com/facebookresearch/detectron2), which is a great library provides utilities in detection and segmentation algorithms. It can be considered as the core technology behind this repository.
+- `For app development:` we build a simple Flask app and use Gunicorn to serve the app.
+- `For deployment:` the app is dockerized and deployed to [Fly.io](https://fly.io/), which is a hosting platform supporting quick deployment.
 ## Installation
 After the successful installation, the application will be available at http://localhost:8080
 ### 1. Build with Docker
@@ -67,47 +67,53 @@ Easy install with Docker.
 #### Build Dockerfile
 ```bash
 # Find Dockerfile and build an image.
-$ docker build -t "polygon-auto-annotate-tool" .
+docker build -t "polygon-auto-annotate-tool" .
 
 # Run in a new container
-$ docker run --name "polygon-auto-annotate-tool" -p 8080:8080  "polygon-auto-annotate-tool"
+docker run -p 8080:8080  "polygon-auto-annotate-tool"
 ```
 
 #### Pre-built Docker Image
 Dockerhub pre-buiilt image: [Dockerhub-link](https://hub.docker.com/r/nxquang2002/polygon-auto-annotate-tool)
 ```bash
-$ docker pull nxquang2002/polygon-auto-annotate-tool
+docker pull nxquang2002/polygon-auto-annotate-tool
 
 # Run the image
-$ docker run --name "polygon-auto-annotate-tool" -p 8080:8080  "nxquang2002/polygon-auto-annotate-tool"
+docker run --name "polygon-auto-annotate-tool" -p 8080:8080  "nxquang2002/polygon-auto-annotate-tool"
 ```
 
 ### 2. Build from source
 Or you can follow these steps to install:
 
 ```bash
-$ conda create -n polygon-annotate python=3.9 -y
-$ conda activate polygon-annotate
+conda create -n polygon-annotate python=3.9 -y
+conda activate polygon-annotate
 
 # Install packages
-$ pip install -r requirements.txt
+pip install -r requirements/base.txt
 
 # Clone and build detectron2 from source. Since it need to be modified
 # to adapt to this app, we have forked and modified the source code.
-$ pip install -e git+https://github.com/nxquang-al/detectron2.git#egg=detectron2
+pip install -e git+https://github.com/nxquang-al/detectron2.git#egg=detectron2
 
 # Download model weights from Google Drive.
-$ gdown https://drive.google.com/uc?id=1qhoiYU92BvJuum74rY6LpiG7-FoEqoO9 -O ./models/
+gdown https://drive.google.com/uc?id=1qhoiYU92BvJuum74rY6LpiG7-FoEqoO9 -O ./models/
+
+cp .env.example .env
+
+chmod +x ./scripts/start.sh
+
+./scripts/start.sh
 ```
 
 ## User Guides
 - Allowed operations:
-    - *Drag and drop*: select a region that contains the object
-    - *Ctrl + click*: remove the mask, if there is no mask, nothing is taken.
-    - *Shift + click*: Include click, add a reasonable region to the current mask (auto-complete).
-    - *Alt + click*: Exclude click, erase a region from the mask (auto-complete).
-    - *Ctrl + Scroll up/down*: zoom in/out the image.
-    - Click on **Export** to download Json file of annotations.
+    - `Drag and drop`: select a region that contains the object
+    - `Ctrl + click`: remove the mask, if there is no mask, nothing is taken.
+    - `Shift + click`: Include click, add a reasonable region to the current mask (auto-complete).
+    - `Alt + click`: Exclude click, erase a region from the mask (auto-complete).
+    - `Ctrl + Scroll up/down`: zoom in/out the image.
+    - Click on `Export` to download Json file of annotations.
 
 ## Acknowledgement
 - This application is inspired by the [Roboflow Smart Polygon Labeling](https://blog.roboflow.com/automated-polygon-labeling-computer-vision/), but worse. Instead of labeling in one click, our app requires more operations but, provides more flexibility in selecting objects.

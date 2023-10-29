@@ -1,12 +1,12 @@
 import numpy as np
-from dotenv import load_env
+from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template, request
 
 from service.predictor import SLICSuperpixels, VisualizationDemo
 from service.structures import MasksManager
 from utils.utils import base64_to_pil, np_to_base64, region_inference
 
-load_env()
+load_dotenv()
 app = Flask(__name__)
 
 # demo = None
@@ -17,7 +17,7 @@ masks_manager = None
 @app.route("/")
 @app.route("/index")
 def home():
-    return render_template("index.html")
+    return render_template("index.html"), 200
 
 
 @app.route("/predict", methods=["POST", "GET"])

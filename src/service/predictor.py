@@ -1,27 +1,27 @@
+import os
+
 import numpy as np
 import torch
 from detectron2.config import get_cfg
 from detectron2.data import MetadataCatalog
 from detectron2.engine.defaults import DefaultPredictor
 from detectron2.utils.visualizer import ColorMode, Visualizer
+from dotenv import load_dotenv
 from skimage.segmentation import slic
 from skimage.util import img_as_float
 
-CONFIG_FILE = "src/detectron2/configs/fcos/fcos_imprv_R_101_FPN_cpu.yaml"
-# CONFIG_FILE = "src/detectron2/configs/fcos/fcos_imprv_R_101_FPN.yaml"
-
-CONFIDENCE_THRESHOLD = 0.5
+load_dotenv()
 
 
 def setup_cfg():
     # Load default config
     cfg = get_cfg()
     # Merge the default with customized one
-    cfg.merge_from_file(CONFIG_FILE)
+    cfg.merge_from_file(os.getenv("CONFIG_FILE_CPU"))
     # Set score_threshold for builtin models
-    cfg.MODEL.RETINANET.SCORE_THRESH_TEST = CONFIDENCE_THRESHOLD
-    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = CONFIDENCE_THRESHOLD
-    cfg.MODEL.FCOS.INFERENCE_TH = CONFIDENCE_THRESHOLD
+    cfg.MODEL.RETINANET.SCORE_THRESH_TEST = os.getenv("CONFIDENCE_THRESHOLD", 0.5)
+    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = os.getenv("CONFIDENCE_THRESHOLD", 0.5)
+    cfg.MODEL.FCOS.INFERENCE_TH = os.getenv("CONFIDENCE_THRESHOLD", 0.5)
     cfg.freeze()
 
     return cfg
