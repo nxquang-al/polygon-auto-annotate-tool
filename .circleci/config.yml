@@ -5,20 +5,18 @@ orbs:
   docker: circleci/docker@2.4.0
 
 jobs:
-  build:
+  build-and-test:
     executor: python/default
     steps:
       - checkout
       - python/install-packages:
           pkg-manager: pip
           pip-dependency-file: requirements/dev.txt
-  test:
-    executor: python/default
-    steps:
-      - checkout
       - run:
           name: Run tests
-          command: python -m pytest
+          command: |
+            export PYTHONPATH=$PYTHONPATH:$PWD/src/
+            python -m pytest
 
   deploy-to-dockerhub:
     executor: docker/docker
@@ -36,13 +34,10 @@ jobs:
 workflows:
   build-test-deploy:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
+      - build-and-test
       - deploy-to-dockerhub:
           requires:
-            - test
+            - build-and-test
 
 on:
   push:
