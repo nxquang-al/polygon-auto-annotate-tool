@@ -295,12 +295,12 @@ function handleModalCanvasMouseDown(e){
 
 /**
  * Request predictions from the server via the "/predict" endpoint.
- * Redraw image with masks and updates the array of polygons when 
+ * Redraw image with masks and updates the array of polygons when
  * receive the response
- * 
+ *
  * @param {*} image     : the original images
  * @param {*} vertices  : [top_left.x, topleft.y, botright.x, botrigh.y]
- * @param {*} clickpoint: coordinates of the selected point. 
+ * @param {*} clickpoint: coordinates of the selected point.
  */
 function predictImage(image, vertices, clickpoint){
     fetch("/predict", {
@@ -438,9 +438,9 @@ function generateList(polygons){
 
 /**
  * Export object as json data and automatically download json file.
- * 
- * @param {object} exportObj 
- * @param {string} exportName 
+ *
+ * @param {object} exportObj
+ * @param {string} exportName
  */
 function downloadObjectAsJson(exportObj, exportName){
     var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));

@@ -1,11 +1,10 @@
-from flask import Flask, request, render_template, jsonify
-from utils.utils import base64_to_pil, np_to_base64, region_inference
-from service.predictor import VisualizationDemo, SLICSuperpixels
-from service.structures import MasksManager
-from dotenv import load_env
-
-import os
 import numpy as np
+from dotenv import load_env
+from flask import Flask, jsonify, render_template, request
+
+from service.predictor import SLICSuperpixels, VisualizationDemo
+from service.structures import MasksManager
+from utils.utils import base64_to_pil, np_to_base64, region_inference
 
 load_env()
 app = Flask(__name__)
@@ -26,7 +25,8 @@ def get_prediction():
     if request.method == "POST":
         # Get params from request body
         body = request.json
-        image = base64_to_pil(body["image"])  # decode image from base64 encoding
+        # decode image from base64 encoding
+        image = base64_to_pil(body["image"])
         image = np.array(image)
         click_point = (body["clickpoint"][0], body["clickpoint"][1])  # (y,x)
 
@@ -38,21 +38,16 @@ def get_prediction():
 
         y0, x0, y1, x1 = body["vertices"]  # top_left, bot_right
         # Model inference
-        mask_region, predictions = region_inference(
-            image, (y0, x0), (y1, x1), demo, click_point
-        )
+        _, predictions = region_inference(image, (y0, x0), (y1, x1), demo, click_point)
 
         # Add mask and redraw new image with new mask
         if predictions is not None and predictions["instances"].has("pred_masks"):
-            bit_mask = (
-                predictions["instances"].pred_masks[0].squeeze(1).data.cpu().numpy()
-            )
+            bit_mask = predictions["instances"].pred_masks[0].squeeze(1).data.cpu().numpy()
             masks_manager.addMask(bit_mask, (y0, x0))
 
             pred_polygons = masks_manager.getPolygons(-1)
             polygons.append(pred_polygons)
         image = masks_manager.redrawAllMasks()
-        # image = masks_manager.redrawAllPolygonMasks(polygons)
 
         # Refactor returned parameters
         # encode array of image to base64
@@ -72,17 +67,18 @@ def remove_mask():
         y, x = (body["clickpoint"][0], body["clickpoint"][1])  # (y,x)
         polygons = body["polygons"]
 
-        # polygons = [[np.asarray(polygon, dtype=np.int32)] for polygon in polygons]
         masks_manager = MasksManager(image)
         masks_manager.addMasksFromPolygons(polygons)
 
-        mask_id = masks_manager.getMaskID(y, x)  # Get index of removed mask
-        image = masks_manager.removeMask(mask_id)  # Redraw image
+        # Get index of removed mask
+        mask_id = masks_manager.getMaskID(y, x)
+        # Redraw image
+        image = masks_manager.removeMask(mask_id)
         if mask_id != -1000:  # dummy value
-            polygons.pop(mask_id)  # List of polygons is modified
+            # List of polygons is modified
+            polygons.pop(mask_id)
 
         image = np_to_base64(image)
-        # polygons = [polygon[0].tolist() for polygon in polygons]
 
         return jsonify(image=image, polygons=polygons)
     return None
@@ -98,7 +94,6 @@ def include():
         y, x = body["clickpoint"][0], body["clickpoint"][1]  # (y,x)
         polygons = body["polygons"]
 
-        # polygons = [[np.asarray(polygon, dtype=np.int32)] for polygon in polygons]
         masks_manager = MasksManager(image)
         masks_manager.addMasksFromPolygons(polygons)
 

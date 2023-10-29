@@ -1,10 +1,9 @@
-from detectron2.utils.visualizer import GenericMask, Visualizer
-from detectron2.utils.colormap import random_color
-from utils.utils import polygons_to_bitmask
-
-import numpy as np
 import cv2
-import matplotlib.pyplot as plt
+import numpy as np
+from detectron2.utils.colormap import random_color
+from detectron2.utils.visualizer import GenericMask, Visualizer
+
+from utils.utils import polygons_to_bitmask
 
 
 def test_polygon_to_mask():
@@ -84,7 +83,7 @@ class Mask:
             modified_region: a list of updated positions
             add: bool, if add is true, region is added, else, region is erased
         """
-        if add == True:
+        if add:
             # rows, cols = zip(*modified_region)
             rows, cols = modified_region
             self.bit_mask[rows, cols] = True
@@ -126,7 +125,7 @@ class MasksManager:
             idx: mask's ID, if there is no mask at this point, return -1000
         """
         for idx in range(len(self.masks)):
-            if self.masks[idx].bit_mask[y, x] == True:
+            if self.masks[idx].bit_mask[y, x]:
                 return idx
         return -1000
 
@@ -149,9 +148,7 @@ class MasksManager:
 
     def addMask(self, bit_mask, top_left=(0, 0)):
         new_mask = Mask()
-        new_mask.pasteBitMask(
-            bit_mask, self.image.shape[0], self.image.shape[1], top_left
-        )
+        new_mask.pasteBitMask(bit_mask, self.image.shape[0], self.image.shape[1], top_left)
         self.masks.append(new_mask)
 
     def addMasksFromPolygons(self, list_polygons):
@@ -159,9 +156,7 @@ class MasksManager:
         Convert polygon boundaries to binary mask and add to list
         """
         for polygons in list_polygons:
-            bit_mask = polygons_to_bitmask(
-                polygons, self.image.shape[0], self.image.shape[1]
-            )
+            bit_mask = polygons_to_bitmask(polygons, self.image.shape[0], self.image.shape[1])
             # print(np.where(bit_mask != 0))
             mask = Mask(bit_mask)
             self.masks.append(mask)
@@ -212,7 +207,7 @@ class MasksManager:
         merged_mask = np.zeros((self.image.shape[0], self.image.shape[1])).astype(int)
         i = 0
         for mask in self.masks:
-            print("Mask {}: {}".format(i, mask))
+            print(f"Mask {i}: {mask}")
             i = i + 1
             merged_mask = np.bitwise_or(merged_mask, mask.bit_mask.astype(int))
         # Using OR operation for merging binary masks
@@ -225,7 +220,7 @@ class MasksManager:
         Returns:
             output: an image that are covered.
         """
-        print("No. of masks: {}".format(len(self.masks)))
+        print(f"No. of masks: {len(self.masks)}")
         merged_mask = self.mergeAllMasks()
         visualized_output = self.visualizer.draw_binary_mask(
             merged_mask, alpha=0.6, area_threshold=512

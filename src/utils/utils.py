@@ -1,9 +1,8 @@
-import numpy as np
 import base64
 import re
-
-from PIL import Image
 from io import BytesIO
+
+import numpy as np
 from PIL import Image, ImageDraw
 
 
@@ -34,9 +33,7 @@ def np_to_base64(img_np):
     img = Image.fromarray(img_np.astype("uint8"), "RGB")
     buffered = BytesIO()
     img.save(buffered, format="PNG")
-    return "data:image/png;base64," + base64.b64encode(buffered.getvalue()).decode(
-        "ascii"
-    )
+    return "data:image/png;base64," + base64.b64encode(buffered.getvalue()).decode("ascii")
 
 
 def polygons_to_bitmask(polygons, height, width):
@@ -78,7 +75,7 @@ def region_inference(image, top_left, bot_right, demo, click_point):
     predictions = None
     try:
         predictions, visualized_output = demo.run_on_image(crop_region, click_point)
-    except:
+    except Exception:
         pass
     if predictions is not None:
         infered_region = visualized_output.get_image()[:, :, ::-1]
