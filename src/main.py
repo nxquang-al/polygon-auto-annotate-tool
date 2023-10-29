@@ -1,12 +1,13 @@
 from flask import Flask, request, render_template, jsonify
-from utils import base64_to_pil, np_to_base64, region_inference
-from predictor import VisualizationDemo, SLICSuperpixels
-from structures import MasksManager
+from utils.utils import base64_to_pil, np_to_base64, region_inference
+from service.predictor import VisualizationDemo, SLICSuperpixels
+from service.structures import MasksManager
+from dotenv import load_env
 
 import os
 import numpy as np
 
-
+load_env()
 app = Flask(__name__)
 
 # demo = None
@@ -139,6 +140,5 @@ def exclude():
     return None
 
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))
-    app.run(host="0.0.0.0", port=port, debug=True)
+# if __name__ == "__main__":
+#     app.run(host=os.getenv("HOST", "0.0.0.0"), port=os.getenv("PORT", 8080), debug=True)

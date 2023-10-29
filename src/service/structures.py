@@ -1,6 +1,6 @@
 from detectron2.utils.visualizer import GenericMask, Visualizer
 from detectron2.utils.colormap import random_color
-from utils import polygons_to_bitmask
+from utils.utils import polygons_to_bitmask
 
 import numpy as np
 import cv2
