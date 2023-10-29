@@ -2,36 +2,52 @@ version: 2.1
 
 orbs:
   python: circleci/python@2.1.1
+  docker: circleci/docker@2.4.0
 
 jobs:
   build:
     executor: python/default
     steps:
       - checkout
-      - run: pip install -r requirements.txt --no-cache-dir
+      - python/install-packages:
+          pkg-manager: pip
+      - run:
+          name: install dependencies
+          command: |
+            python -m venv venv
+            . venv/bin/activate
+            pip install -r requirements/dev.txt
   test:
     executor: python/default
     steps:
       - checkout
-      - run: pytest
+      - run:
+          name: Run tests
+          command: python -m pytest
 
   deploy-to-dockerhub:
-    executor: python/default
+    executor: docker/docker
     steps:
       - checkout
-      - run: docker build -t $DOCKERHUB_USER/$SERVICE_NAME:$VERSION .
-      - run: docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
-      - run: docker push $DOCKERHUB_USER/$SERVICE_NAME:$VERSION
+      - setup_remote_docker
+      - run:
+          name: Build and push
+          command: |
+            docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
+
+            docker build -t $DOCKERHUB_USER/$SERVICE_NAME:$TAG .
+            docker push $DOCKERHUB_USER/$SERVICE_NAME:$TAG
 
 workflows:
-  build-and-test:
+  build-test-deploy:
     jobs:
       - build
-      - test
-
-  deploy:
-    jobs:
-      - deploy-to-dockerhub
+      - test:
+          requires:
+            - build
+      - deploy-to-dockerhub:
+          requires:
+            - test
 
 on:
   push:
