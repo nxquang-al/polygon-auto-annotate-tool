@@ -11,12 +11,7 @@ jobs:
       - checkout
       - python/install-packages:
           pkg-manager: pip
-      - run:
-          name: install dependencies
-          command: |
-            python -m venv venv
-            . venv/bin/activate
-            pip install -r requirements/dev.txt
+          pip-dependency-file: requirements/dev.txt
   test:
     executor: python/default
     steps:
