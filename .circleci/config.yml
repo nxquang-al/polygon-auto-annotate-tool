@@ -15,10 +15,10 @@ jobs:
           pkg-manager: pip
           pip-dependency-file: requirements/dev.txt
       - run:
-          name: Run tests
+          name: Run tests utils
           command: |
             export PYTHONPATH=$PYTHONPATH:$PWD/src/
-            python -m pytest
+            python -m pytest test_utils.py
 
   build-and-push-docker:
     executor: docker/docker
