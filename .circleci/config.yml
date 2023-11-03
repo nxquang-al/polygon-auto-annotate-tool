@@ -18,7 +18,7 @@ jobs:
             export PYTHONPATH=$PYTHONPATH:$PWD/src/
             python -m pytest
 
-  deploy-to-dockerhub:
+  build-and-push-docker:
     executor: docker/docker
     steps:
       - checkout
@@ -35,7 +35,7 @@ workflows:
   build-test-deploy:
     jobs:
       - build-and-test
-      - deploy-to-dockerhub:
+      - build-and-push-docker:
           requires:
             - build-and-test
 
