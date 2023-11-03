@@ -1,3 +1,6 @@
+import os
+from pathlib import Path
+
 import numpy as np
 from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template, request
@@ -7,7 +10,9 @@ from service.structures import MasksManager
 from utils.utils import base64_to_pil, np_to_base64, region_inference
 
 load_dotenv()
-app = Flask(__name__)
+template_dir = Path(__file__).parent.parent / "templates"
+static_dir = Path(__file__).parent.parent / "static"
+app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 
 # demo = None
 demo = VisualizationDemo()
