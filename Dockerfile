@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN apt-get update -y
 RUN apt-get install -y gcc g++ git python3-opencv
-ENV PYTHONPATH "${PYTHONPATH}:/app"
+ENV PYTHONPATH "${PYTHONPATH}:/app/src"
 
 COPY ./requirements/ /app/requirements/
 COPY . /app
